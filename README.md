@@ -3,6 +3,9 @@ Comando actualizacion windows
 # Instalacion
 ```Install-Module PSWindowsUpdate -Force```
 
+# Importar modulo 
+```Import-Module PSWindowsUpdate```
+
 # Bloqueo 
 ```Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass```
 
