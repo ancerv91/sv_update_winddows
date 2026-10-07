@@ -37,3 +37,14 @@ if (Test-Path "$WU\AU") {
 ```
 # Reiniciar WSUS 
 ```Restart-Service wuauserv -Force```
+
+# Despues de desinstalar el WSUS
+```
+Stop-Service wuauserv -Force
+Stop-Service bits -Force
+Stop-Service cryptsvc -Force
+Rename-Item C:\Windows\SoftwareDistribution SoftwareDistribution.old -ErrorAction SilentlyContinue
+Rename-Item C:\Windows\System32\catroot2 catroot2.old -ErrorAction SilentlyContinue
+Rename-Item C:\Windows\SoftwareDistribution SoftwareDistribution.old -ErrorAction SilentlyContinue
+Rename-Item C:\Windows\System32\catroot2 catroot2.old -ErrorAction SilentlyContinue
+```
