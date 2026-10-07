@@ -16,9 +16,13 @@ Comando actualizacion windows
 ```$env:http_proxy="http://squidadmin:`$1Val32022`$qu1D@172.16.100.122:4128/"; $env:https_proxy="http://squidadmin:`$1Val32022`$qu1D@172.16.100.122:4128/"; $env:no_proxy="127.0.0.1,localhost"; $env:NO_PROXY="127.0.0.1,localhost"```
 
 # WSUS
-``` $WU = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'
-Get-ItemProperty $WU -ErrorAction SilentlyContinue |
-Select-Object WUServer,WUStatusServer,TargetGroup,TargetGroupEnabled
-Get-ItemProperty "$WU\AU" -ErrorAction SilentlyContinue |
-Select-Object UseWUServer ```
-
+```
+$WU = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate'
+Remove-ItemProperty $WU -Name WUServer -ErrorAction SilentlyContinue
+Remove-ItemProperty $WU -Name WUStatusServer -ErrorAction SilentlyContinue
+if (Test-Path "$WU\AU") {
+    Set-ItemProperty "$WU\AU" -Name UseWUServer -Value 0 -Type DWord
+}
+```
+# Reiniciar WSUS 
+```Restart-Service wuauserv -Force```
