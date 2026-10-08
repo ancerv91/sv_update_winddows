@@ -12,6 +12,8 @@ Comando actualizacion windows
 # Update 
 ```Install-WindowsUpdate -AcceptAll -IgnoreReboot```
 
+```Install-WindowsUpdate -MicrosoftUpdate -AcceptAll -IgnoreReboot```
+
 # Evidencia 
 ```Write-Host "HOSTNAME: $(hostname)"; Write-Host "IP: $((Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.IPAddress -notlike '127.*' -and $_.InterfaceAlias -notlike '*Loopback*'}).IPAddress)"; Write-Host "`nULTIMOS PARCHES:"; Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 10 HotFixID,Description,InstalledOn```
 
@@ -37,6 +39,17 @@ if (Test-Path "$WU\AU") {
 ```
 # Reiniciar WSUS 
 ```Restart-Service wuauserv -Force```
+
+# Instalar y preparar el módulo
+```
+Set-ExecutionPolicy Unrestricted -Force -ErrorAction SilentlyContinue
+Install-Module -Name PSWindowsUpdate -Force
+Import-Module PSWindowsUpdate
+```
+# Registrar
+```
+Add-WUServiceManager -MicrosoftUpdate -Confirm:$false
+```
 
 # Despues de desinstalar el WSUS
 ```
