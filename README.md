@@ -47,7 +47,7 @@ Rename-Item C:\Windows\SoftwareDistribution SoftwareDistribution.old -ErrorActio
 Rename-Item C:\Windows\System32\catroot2 catroot2.old -ErrorAction SilentlyContinue
 Rename-Item C:\Windows\SoftwareDistribution SoftwareDistribution.old -ErrorAction SilentlyContinue
 Rename-Item C:\Windows\System32\catroot2 catroot2.old -ErrorAction SilentlyContinue
-Start-Service wuauserv -Force
-Start-Service bits -Force
-Start-Service cryptsvc -Force
+Start-Service wuauserv
+Start-Service bits
+Start-Service cryptsvc
 ```
