@@ -64,3 +64,12 @@ Start-Service wuauserv
 Start-Service bits
 Start-Service cryptsvc
 ```
+
+```
+Stop-Service -Name wuauserv, bits, cryptsvc, msiserver -Force -ErrorAction SilentlyContinue=
+$Process = Get-CimInstance Win32_Process | Where-Object {$_.ExecutablePath -like "*SoftwareDistribution*"}
+if ($Process) { Stop-Process -Id $Process.ProcessId -Force }
+Rename-Item -Path "C:\Windows\SoftwareDistribution" -NewName "SoftwareDistribution.old" -Force
+Rename-Item -Path "C:\Windows\System32\catroot2" -NewName "catroot2.old" -Force
+Start-Service -Name wuauserv, bits, cryptsvc, msiserver -ErrorAction SilentlyContinue
+```
